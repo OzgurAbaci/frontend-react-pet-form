@@ -14,7 +14,7 @@ function TextInput({label, name, fieldRef}) {
                 fieldRef={fieldRef}
                 name={name}
             />
-            {errors[name] && <ErrorMessage>{errors[name].message || "Error"}</ErrorMessage>}
+            {errors[name] && (<ErrorMessage>{errors[name].message || "Error"}</ErrorMessage>)}
 
         </div>
     );

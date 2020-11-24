@@ -2,7 +2,7 @@ import React from 'react';
 
 function ErrorMessage({children}){
     return(
-        <p>{children}</p>
+        <p style={{color: `red`}}>{children}</p>
     )
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Label({name, children}){
+function Label({name, children, type}){
     return(
-        <label htmlFor={name}>{children} : </label>
+        <label htmlFor={name}>{children} {(!type || (type!="radio")) && ":"} </label>
     );
 }
 
