@@ -4,13 +4,14 @@ import {useForm, FormProvider} from "react-hook-form";
 import TextInput from "../Molecules/TextInput";
 import NumberInput from "../Molecules/NumberInput";
 import SelectOrOther from "../Molecules/SelectOrOther";
+import ErrorMessage from "../Atoms/ErrorMessage";
 
 function App() {
     const methods = useForm();
     const onSubmit = (data) => console.log(data);
     return (
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <form id='myform' onSubmit={methods.handleSubmit(onSubmit)}>
                 <TextInput
                     label="Voornaam"
                     name="first-name"
@@ -71,7 +72,7 @@ function App() {
                 />
                 <SelectOrOther
                     name='fav-animal'
-                    options={['Kat','Hond','Hamster','Muis']}
+                    options={['Kat', 'Hond', 'Hamster', 'Muis']}
                     otherString='Anders'
                     fieldRef={methods.register({
                         required: {
@@ -80,10 +81,35 @@ function App() {
                         }
                     })}
                 />
-                <textarea placeholder="opmerkingen" cols='50' rows='7'/>
+                <textarea
+                    form='myform'
+                    name='remarks'
+                    placeholder='Opmerkingen'
+                    cols='50'
+                    rows='7'
+                    ref={methods.register()}
+                />
+                <input type='hidden' name='banaan' value='appel' />
+                <div>
+                    <input
+                        type='checkbox'
+                        name='terms'
+                        id='terms-and-conditions'
+                        ref={methods.register({
+                            required: {
+                                value: true,
+                                message: "Je dient de voorwaarden te accepteren"
+                            }
+                        })}
+                    />
+                    <label htmlFor='terms-and-conditions'>Ik accepteer de voorwaarden.</label>
+                    {methods.errors['terms'] &&
+                    <div><ErrorMessage>{methods.errors['terms'].message}</ErrorMessage></div>}
+                </div>
                 <div>
                     <button type="submit">Verstuur</button>
                 </div>
+
             </form>
         </FormProvider>
     )
